@@ -1,0 +1,10 @@
+.container{
+    text-align: center; 
+    color: white;
+    background-color: black;
+}
+.jumbotron{
+background-image:url("../images/Dellapaz.png") ;
+color: white;
+}
+
