@@ -3,12 +3,20 @@
     color: white;
     background-color: black;
 }
+h1{
+    font-family:Sansita Swashed ;
+}
 .jumbotron{
 background-image:url("../images/Dellapaz.png") ;
 color: white;
 }
 .form{
     background-image: url("../images/pexels-miguel-á-padriñán-932262.jpg");
-    background-size: auto;
+    background-size: auto; 
+    margin: 30px;
+}
+.img{
+    width: 300px;
+    height: 300px;
 }
 
