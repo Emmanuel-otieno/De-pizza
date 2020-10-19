@@ -7,50 +7,77 @@ $(document).ready(function(){
 
 });
 
-$(document).ready(function () {
-  $("#makeAnOrder").submit(function (event) {
-    function UserOrder(size, crust, toppings, quantity, flavour) {
-      this.flavour = flavour;
-      this.size = size;
-      this.toppings = toppings;
-      this.crust = crust;
-      this.quantity = quantity;
-    }
+function Results (type,size,crust,toppings) {
+  this.type = type;
+  this.size= size;
+  this.crust= crust;
+  this.toppings=toppings;
+};
+Results.prototype.order = function() {
+  return "You have made an order of " + this.type + " pizza  with " + this.toppings + " as toppings and " + this.crust + " for crust ."
+};
+function TotalPrice (price, quantity, delivery,toppings,crust) {
+  this.price= price;
+  this.quantity=quantity;
+  this.delivery=delivery;
+  this.toppings=toppings;
+  this.crust=crust;
+};
+TotalPrice.prototype.finalTotal = function () {
+  return ( this.price + this.delivery + this.toppings + this.crust )* this.quantity ;
+};
+var sizePrices = [1400, 1000, 700]
+var priceToppings = [300,350,250,400,250]
+var toppingsName= ["Pepperoni" , "mushroom" , "onion" ,"sausage", " bacon"]
+var crustNames= ["Crispy", "Stuffed", "Glutton-free"]
+var crustPrices = [100,120,200]
+var deliveryPrices = [0, 150];
+$(document).ready(function(){
+  $('form#makeAnOrder').submit(function (event) {
+      event.preventDefault();
+  var pizzaType = $('#pizzaflavour').val();
 
+  var pizzaSize = parseInt($('#pizzasize').val());
 
-    var pizzaFlavourPrice = function () {
-      var pizzaFlavour = $("#pizzaflavour").val();
-      return parseInt(pizzaFlavour);
-    };
+  var pizzaToppings=parseInt($('#toppings').val());
 
-    var pizzaSizePrice = function () {
-      var pizzaSize = $("#pizzasize").val();
-      return parseInt(pizzaSize);
-    };
+  var priceCrust =parseInt($('#pizzacrust').val());
 
-    var pizzaToppingsPrice = function () {
-      var pizzaToppings = $("#toppings").val();
-      return parseInt(pizzaToppings);
-    };
+  var pizzaTop = $('#toppinds').val();
 
-    var pizzaCrustPrice = function () {
-      var pizzaCrust = $("#crust").val();
-      return parseInt(pizzaCrust);
-    };
+  var pizzaQty = parseInt($('#quantity').val());
 
-    var pizzaQuantityPrice = function () {
-      var pizzaQuantity = $("#quantity").val();
-      return parseInt(pizzaQuantity);
-    };
+  var pizzaPick = parseInt($('#pickUp').val());
 
+  var price = sizePrices[pizzaSize - 1];
+  var DeliveryCost = deliveryPrices[pizzaPick - 1];
+  var ToppingsCost = priceToppings[pizzaToppings-1];
+  var crustCost = crustPrices[priceCrust-1]
+  var topNames = toppingsName[pizzaTop-1]
+  var crustName = crustNames[priceCrust-1]
+  newOrder = new Results(pizzaType,pizzaSize, crustName,topNames,crustName);
+  newTotal = new TotalPrice(price, pizzaQty, DeliveryCost,ToppingsCost,crustCost);
 
-    var inputForUserOrder = new UserOrder(
-      pizzaFlavourPrice(),
-      pizzaSizePrice(),
-      pizzaToppingsPrice(),
-      pizzaCrustPrice(),
-      pizzaQuantityPrice()
-    );
-
-
+  if (pizzaPick===1){
+      alert( newOrder.order());
+      alert("Your bill is: " + newTotal.finalTotal());
+      alert("Thank you for shopping with us! " )
+      }else{
+          if(pizzaPick===2){
+             var location= prompt(" Where would your like your Pizza to be Delivered? ");
+             var locations =["nairobi", "wendani", "ngong road", "ngong lane plaza", "cbd", "moringa"]
+             if((location !== locations[0]) && (location !== locations[1]) && (location !== locations[2]) && (location !== locations[3]) && (location !== locations[4]) && (location !== locations[5])){
+              alert("Choose a location listed below")
+              alert(locations)
+          }
+          else  {
+              prompt("Please enter your phone number to facilitate communication and faster delivery.")
+              alert("Your order has been received and it will be delivered to " + location + " an additional 200/= will be charged for delivery.");
+              alert(newOrder.order());
+              alert("Your bill is: " + newTotal.finalTotal());
+              alert("Thank you for shopping with us! Your Order will be arriving soon." )
+          }
+          }
+      }
+})
 });
