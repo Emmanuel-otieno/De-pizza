@@ -65,7 +65,7 @@ $(document).ready(function(){
       }else{
           if(pizzaPick===2){
              var location= prompt(" Where would your like your Pizza to be Delivered? ");
-             var locations =["nairobi", "wendani", "ngong road", "ngong lane plaza", "cbd", "moringa"]
+             var locations =["nairobi", "Kiambu", "Kajiado", "ngong hills", "westland", "mombassa road"]
              if((location !== locations[0]) && (location !== locations[1]) && (location !== locations[2]) && (location !== locations[3]) && (location !== locations[4]) && (location !== locations[5])){
               alert("Choose a location listed below")
               alert(locations)
