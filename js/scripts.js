@@ -7,14 +7,14 @@ $(document).ready(function(){
 
 });
 
-function Results (type,size,crust,toppings) {
-  this.type = type;
+function Results (flavour,size,crust,toppings) {
+  this.flavour = flavour;
   this.size= size;
   this.crust= crust;
   this.toppings=toppings;
 };
 Results.prototype.order = function() {
-  return "You have made an order of " + this.type + " pizza  with " + this.toppings + " as toppings and " + this.crust + " for crust ."
+  return "You have made an order of " + this.flavour + " pizza  with " + this.toppings + " as toppings and " + this.crust + " for crust ."
 };
 function TotalPrice (price, quantity, delivery,toppings,crust) {
   this.price= price;
@@ -29,13 +29,14 @@ TotalPrice.prototype.finalTotal = function () {
 var sizePrices = [1400, 1000, 700]
 var priceToppings = [300,350,250,400,250]
 var toppingsName= ["Pepperoni" , "mushroom" , "onion" ,"sausage", " bacon"]
-var crustNames= ["Crispy", "Stuffed", "Glutton-free"]
-var crustPrices = [100,120,200]
+var crustNames= ["Thin Crust", "Thick Crust", "Deep Crust", "Cheese","Stuffed Crust"]
+var crustPrices = [300,500,600,600,600]
 var deliveryPrices = [0, 150];
+
 $(document).ready(function(){
   $('form#makeAnOrder').submit(function (event) {
       event.preventDefault();
-  var pizzaType = $('#pizzaflavour').val();
+  var pizzaFlavour = $('#pizzaflavour').val();
 
   var pizzaSize = parseInt($('#pizzasize').val());
 
@@ -55,7 +56,8 @@ $(document).ready(function(){
   var crustCost = crustPrices[priceCrust-1]
   var topNames = toppingsName[pizzaTop-1]
   var crustName = crustNames[priceCrust-1]
-  newOrder = new Results(pizzaType,pizzaSize, crustName,topNames,crustName);
+
+  newOrder = new Results(pizzaFlavour,pizzaSize, crustName,topNames,crustName);
   newTotal = new TotalPrice(price, pizzaQty, DeliveryCost,ToppingsCost,crustCost);
 
   if (pizzaPick===1){
